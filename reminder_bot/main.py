@@ -7,28 +7,17 @@ from keep_alive import keep_alive
 
 #use ! for bot
 bot = commands.Bot("!")
-#duck squad bot testing chat id and/or general chat
-channel_id = 651254428137160704
+#target chat id
+#channel_id = <insert chat id here>
 
 #the bot token
 my_secret = os.environ['TOKEN']
 
-#the following lines are useful for remembering on_message events
-# @bot.event
-# async def on_message(message):
-#   if message.content.startswith("!joke"):
-#     await message.channel.send("I have no jokes")
-#   await bot.process_commands(message)
-
-sus_words = ["daddy", "UwU", "uWu", "uwu"]
 
 @bot.event
 async def on_message(message):
   if bot.user.mentioned_in(message):
-    await message.channel.send("Hello, I'm Hydro Homie Bot! Commands:\n!joke: Tell a water-based joke\n!tutorial: Teach you how to drink water")
-  for word in sus_words:
-    if word in message.content:
-      await message.channel.send(message.author.mention + "You sound pretty thirsty! Stay hydrated!")
+    await message.channel.send("Hello! Commands:\n!joke: Tell a water-based joke\n!tutorial: Teach you how to drink water")
   await bot.process_commands(message)
 
 #open jokes file and read in content to list
@@ -51,8 +40,8 @@ async def tutorial(ctx):
 @tasks.loop(seconds=1800)
 async def drink_water():
     message_channel = bot.get_channel(channel_id)
-    #role id of water sluts
-    await message_channel.send("<@&863636742409158747> It's time to drink some water!")
+    #role id of role to ping for reminder
+    await message_channel.send("<@&insertroleidhere> It's time to drink some water!")
 
 @drink_water.before_loop
 async def before():
